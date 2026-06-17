@@ -9,8 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@breezystack/lamejs": "^1.2.7",
     "@next/third-parties": "^16.2.6",
-    "lamejs": "^1.2.1",
     "next": "16.2.6",
     "playwright": "^1.60.0",
     "react": "19.2.4",

@@ -10,7 +10,7 @@ async function convertToMp3(audioUrl: string): Promise<Blob> {
   const audioBuffer = await audioContext.decodeAudioData(arrayBuffer)
   await audioContext.close()
 
-  const { Mp3Encoder } = await import('lamejs')
+  const { Mp3Encoder } = await import('@breezystack/lamejs')
 
   const numChannels = Math.min(audioBuffer.numberOfChannels, 2)
   const sampleRate = audioBuffer.sampleRate
@@ -28,7 +28,7 @@ async function convertToMp3(audioUrl: string): Promise<Blob> {
   const left = floatTo16bit(audioBuffer.getChannelData(0))
   const right = numChannels > 1 ? floatTo16bit(audioBuffer.getChannelData(1)) : left
 
-  const chunks: Uint8Array<ArrayBuffer>[] = []
+  const chunks: Uint8Array[] = []
   const chunkSize = 1152
   for (let i = 0; i < left.length; i += chunkSize) {
     const encoded = numChannels > 1
@@ -39,7 +39,7 @@ async function convertToMp3(audioUrl: string): Promise<Blob> {
   const flushed = encoder.flush()
   if (flushed.length > 0) chunks.push(flushed)
 
-  return new Blob(chunks, { type: 'audio/mpeg' })
+  return new Blob(chunks as Uint8Array<ArrayBuffer>[], { type: 'audio/mpeg' })
 }
 
 function formatTime(seconds: number) {
