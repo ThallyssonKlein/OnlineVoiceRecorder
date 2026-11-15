@@ -11,13 +11,14 @@ npm run dev      # Start dev server (Turbopack, localhost:3000)
 npm run build    # Production build (Turbopack)
 npm run start    # Serve production build
 npm run lint     # Run ESLint
+npm test         # Run Jest unit tests (npm run test:coverage for coverage)
 ```
 
-There is no test command configured. Playwright is installed as a dependency but no test files exist yet.
+Tests use Jest + React Testing Library (`*.test.ts(x)` next to the source). Playwright is installed but has no test files yet.
 
 ## Architecture
 
-Single-page Next.js 16 app using the App Router. All UI lives in `app/page.tsx` as a single Client Component (`'use client'`), which uses the `useVoiceRecorder` hook from `react-voice-recorder-kit` to manage recorder state.
+Single-page Next.js 16 app using the App Router, with sources under `src/`. `src/app/page.tsx` composes the `useVoiceRecorder` hook from `react-voice-recorder-kit` with components (`@components`), the `useMp3Download` hook (`@hooks`), services (`@services`: MP3 encoding, file download, logger) and utils (`@utils`). Path aliases are defined in `tsconfig.json` and `jest.config.ts`.
 
 **State machine**: The recorder cycles through states — `idle → recording → paused → reviewing/playing` — controlled via the hook's returned handlers (`start`, `handlePause`, `handleResume`, `handleStop`, `handlePlay`, `handleRestart`, `handleDelete`). The UI renders different controls based on the current state.
 
