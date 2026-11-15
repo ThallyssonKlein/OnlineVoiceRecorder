@@ -117,7 +117,7 @@ export default function Home() {
       const url = URL.createObjectURL(blob)
       const a = document.createElement('a')
       a.href = url
-      a.download = `gravacao-${Date.now()}.mp3`
+      a.download = `recording-${Date.now()}.mp3`
       a.click()
       URL.revokeObjectURL(url)
     } finally {
@@ -145,18 +145,18 @@ export default function Home() {
 
         {/* Status label */}
         <span className="text-sm text-gray-400 uppercase tracking-widest h-4">
-          {isIdle && 'Pronto'}
-          {isRecording && 'Gravando…'}
-          {isPaused && 'Pausado'}
-          {isReviewing && 'Gravação concluída'}
-          {isPlaying && 'Reproduzindo…'}
+          {isIdle && 'Ready'}
+          {isRecording && 'Recording…'}
+          {isPaused && 'Paused'}
+          {isReviewing && 'Recording complete'}
+          {isPlaying && 'Playing…'}
         </span>
 
         {/* Controls */}
         <div className="flex items-center gap-4 mt-2">
           {/* Record / stop */}
           {(isIdle) && (
-            <IconButton onClick={start} title="Gravar" variant="primary">
+            <IconButton onClick={start} title="Record" variant="primary">
               {/* mic */}
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 1a4 4 0 0 1 4 4v6a4 4 0 0 1-8 0V5a4 4 0 0 1 4-4zm-1 17.93V21H9v2h6v-2h-2v-2.07A8.001 8.001 0 0 0 20 11h-2a6 6 0 0 1-12 0H4a8.001 8.001 0 0 0 7 6.93z"/>
@@ -168,7 +168,7 @@ export default function Home() {
             <>
               {/* Pause / Resume */}
               {isRecording ? (
-                <IconButton onClick={handlePause} title="Pausar" variant="default">
+                <IconButton onClick={handlePause} title="Pause" variant="default">
                   {/* pause */}
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                     <rect x="6" y="4" width="4" height="16"/>
@@ -176,7 +176,7 @@ export default function Home() {
                   </svg>
                 </IconButton>
               ) : (
-                <IconButton onClick={handleResume} title="Retomar" variant="default">
+                <IconButton onClick={handleResume} title="Resume" variant="default">
                   {/* play */}
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                     <polygon points="5,3 19,12 5,21"/>
@@ -185,7 +185,7 @@ export default function Home() {
               )}
 
               {/* Stop */}
-              <IconButton onClick={handleStop} title="Parar" variant="primary">
+              <IconButton onClick={handleStop} title="Stop" variant="primary">
                 {/* stop */}
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                   <rect x="4" y="4" width="16" height="16" rx="2"/>
@@ -197,7 +197,7 @@ export default function Home() {
           {(isReviewing || isPlaying) && (
             <>
               {/* Record again */}
-              <IconButton onClick={handleRestart} title="Gravar novamente" variant="default">
+              <IconButton onClick={handleRestart} title="Record again" variant="default">
                 {/* repeat */}
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <polyline points="17 1 21 5 17 9"/>
@@ -208,7 +208,7 @@ export default function Home() {
               </IconButton>
 
               {/* Delete */}
-              <IconButton onClick={handleDelete} title="Excluir" variant="danger">
+              <IconButton onClick={handleDelete} title="Delete" variant="danger">
                 {/* trash */}
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <polyline points="3 6 5 6 21 6"/>
@@ -231,7 +231,7 @@ export default function Home() {
               className="flex items-center justify-center gap-1.5 text-xs text-gray-400 hover:text-gray-600 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             >
               {downloading ? (
-                'Convertendo…'
+                'Converting…'
               ) : (
                 <>
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -239,7 +239,7 @@ export default function Home() {
                     <polyline points="7 10 12 15 17 10"/>
                     <line x1="12" y1="15" x2="12" y2="3"/>
                   </svg>
-                  Baixar MP3
+                  Download MP3
                 </>
               )}
             </button>
