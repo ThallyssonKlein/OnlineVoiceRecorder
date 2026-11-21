@@ -34,3 +34,7 @@ Single-page Next.js 16 app using the App Router, with sources under `src/`. `src
 - **ESLint**: Uses the ESLint CLI directly (`eslint`), not `next lint`.
 
 Before writing code that touches routing, caching, or middleware, read the relevant guide in `node_modules/next/dist/docs/`.
+
+## Modern web guidance
+
+Before writing or changing HTML, CSS, or client-side JS/React UI code (dialogs, popovers, forms, layout, animations, accessibility, performance), invoke the `modern-web-guidance` skill first and follow its guides. Prefer native platform features over custom JS or heavy libraries. Skip it for backend, config/tooling, and test-only changes.
